@@ -1,0 +1,93 @@
+{
+  "$schema": "./@types/schema/package/index.json",
+  "package_version": 2,
+  "name": "brief-toolkit-i18n",
+  "version": "1.0.0",
+  "author": "vangagh@live.cn",
+  "editor": ">=3.8.8",
+  "scripts": {
+    "preinstall": "node ./scripts/preinstall.js",
+    "build": "npx tsc"
+  },
+  "description": "Brief Toolkit I18n 插件",
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "main": "./dist/main.js",
+  "panels": {
+    "default": {
+      "title": "brief-toolkit-i18n Default Panel",
+      "main": "dist/panels/default",
+      "size": {
+        "min-width": 400,
+        "min-height": 300,
+        "width": 1024,
+        "height": 600
+      }
+    },
+    "i18n": {
+      "title": "I18n 面板",
+      "main": "dist/panels/i18n",
+      "size": {
+        "min-width": 400,
+        "min-height": 300,
+        "width": 600,
+        "height": 500
+      }
+    }
+  },
+  "contributions": {
+    "scene": {
+      "script": "./dist/scene.js"
+    },
+    "profile": {
+      "project": {
+        "i18nPanelState": {
+          "default": {
+            "resourceDir": "",
+            "templateLocale": null
+          },
+          "message": "i18n-panel-state-changed",
+          "label": "多语言面板配置"
+        }
+      }
+    },
+    "menu": [
+      {
+        "path": "brief-toolkit-i18n",
+        "label": "打开 I18n 面板",
+        "message": "open-i18n-panel"
+      }
+    ],
+    "messages": {
+      "open-panel": {
+        "methods": [
+          "openPanel"
+        ]
+      },
+      "open-i18n-panel": {
+        "methods": [
+          "openI18nPanel"
+        ]
+      },
+      "send-to-panel": {
+        "methods": [
+          "default.hello"
+        ]
+      },
+      "i18n-panel-state-changed": {
+        "methods": [
+          "onI18nPanelStateChanged"
+        ]
+      }
+    },
+    "asset-db": {
+      "mount": {
+        "path": "./static/assets",
+        "readonly": true,
+        "visible": true,
+        "enabled": true
+      }
+    }
+  }
+}
