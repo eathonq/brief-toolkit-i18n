@@ -76,12 +76,12 @@
 }
 
 .dir-table th:nth-child(1),
-.dir-table td:nth-child(1) {
+.dir-table td:nth-child(1),
+.dir-table th:nth-child(2),
+.dir-table td:nth-child(2) {
     width: auto;
 }
 
-.dir-table th:nth-child(2),
-.dir-table td:nth-child(2),
 .dir-table th:nth-child(3),
 .dir-table td:nth-child(3) {
     width: 88px;
@@ -121,10 +121,13 @@
     color: var(--color-normal-contrast-weak, #9c9c9c);
 }
 
+/* Delete confirm-state button (pulsing red) */
 .table-action-btn-danger {
     background: #b63a3a;
     border-color: #b63a3a;
     color: #ffffff;
+    cursor: pointer;
+    animation: pulse-confirm 0.8s ease-in-out infinite alternate;
 }
 
 .table-action-btn-danger:hover {
@@ -134,23 +137,32 @@
 }
 
 .table-action-btn-danger[disabled] {
+    animation: none;
     background: transparent;
+    border-color: var(--color-normal-border, #4a4a4a);
     color: var(--color-normal-contrast-weak, #9c9c9c);
 }
 
-/* Confirm-state button (pulsing orange) */
-.table-action-btn-confirm {
-    background: #d97706;
-    border-color: #d97706;
+/* Sync confirm-state button (pulsing green) */
+.table-action-btn-confirm-sync {
+    background: #2d8a3e;
+    border-color: #2d8a3e;
     color: #ffffff;
     cursor: pointer;
     animation: pulse-confirm 0.8s ease-in-out infinite alternate;
 }
 
-.table-action-btn-confirm:hover {
-    background: #e5901a;
-    border-color: #e5901a;
+.table-action-btn-confirm-sync:hover {
+    background: #35a04a;
+    border-color: #35a04a;
     color: #ffffff;
+}
+
+.table-action-btn-confirm-sync[disabled] {
+    animation: none;
+    background: transparent;
+    border-color: var(--color-normal-border, #4a4a4a);
+    color: var(--color-normal-contrast-weak, #9c9c9c);
 }
 
 @keyframes pulse-confirm {
@@ -158,21 +170,19 @@
     to { opacity: 1; }
 }
 
-.template-flag-yes {
-    display: inline-block;
-    min-width: 24px;
-    padding: 1px 8px;
-    border-radius: 3px;
-    background: color-mix(in srgb, #4caf50 22%, transparent);
-    border: 1px solid #4caf50;
+.table-action-btn-current-template {
+    cursor: default;
+    opacity: 1;
+    border-color: #4caf50;
     color: #4caf50;
-    font-size: 12px;
+    background: color-mix(in srgb, #4caf50 22%, transparent);
     font-weight: 600;
-    text-align: center;
 }
 
-.template-flag-no {
-    color: var(--color-normal-contrast-weak, #9c9c9c);
+.table-action-btn-current-template:hover {
+    border-color: #4caf50;
+    color: #4caf50;
+    background: color-mix(in srgb, #4caf50 22%, transparent);
 }
 
 .empty-tip {

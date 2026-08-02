@@ -16,7 +16,7 @@ module.exports = {
 
   // 输入框占位符
   input_resource_dir_placeholder: "请配置多语言目录",
-  input_new_dir_placeholder: "请输入目录名称，例如 zh",
+  input_new_locale_placeholder: "请输入代码，例如 zh",
 
   // 按钮
   btn_add: "添加",
@@ -24,16 +24,14 @@ module.exports = {
   btn_add_locale: "新增",
 
   // 表格表头
-  table_header_code: "目录",
-  table_header_is_template: "是否模板",
+  table_header_code: "代码",
+  table_header_name: "名称",
   table_header_set_template: "设置模板",
   table_header_sync: "同步",
   table_header_open: "打开",
   table_header_delete: "删除",
 
   // 表格单元格内容
-  template_yes: "是",
-  template_no: "否",
   btn_set_template: "设为模板",
   btn_current_template: "当前模板",
   btn_sync: "同步",

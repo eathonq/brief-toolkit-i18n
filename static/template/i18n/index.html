@@ -1,24 +1,24 @@
 <div id="app" class="i18n-panel">
     <div class="row row-setting">
-        <h3 id="sectionResourceDirTitle" class="section-title">多语言资源目录设置：</h3>
-        <input id="resourceDirInput" class="input" type="text" placeholder="请配置多语言目录" />
-        <button id="confirmResourceDirBtn" class="btn" type="button">添加</button>
+        <h3 id="sectionResourceDirTitle" class="section-title"></h3>
+        <input id="resourceDirInput" class="input" type="text" />
+        <button id="confirmResourceDirBtn" class="btn" type="button"></button>
     </div>
 
     <div class="row row-title">
-        <h3 id="sectionLocaleListTitle" class="section-title">多语言列表：</h3>
+        <h3 id="sectionLocaleListTitle" class="section-title"></h3>
     </div>
 
     <div class="row row-table">
         <table class="dir-table">
             <thead>
                 <tr>
-                    <th id="thCode">目录</th>
-                    <th id="thIsTemplate">是否模板</th>
-                    <th id="thSetTemplate">设置模板</th>
-                    <th id="thSync">同步</th>
-                    <th id="thOpen">打开</th>
-                    <th id="thDelete">删除</th>
+                    <th id="thCode"></th>
+                    <th id="thName"></th>
+                    <th id="thSetTemplate"></th>
+                    <th id="thSync"></th>
+                    <th id="thOpen"></th>
+                    <th id="thDelete"></th>
                 </tr>
             </thead>
             <tbody id="dirTableBody"></tbody>
@@ -26,8 +26,8 @@
     </div>
 
     <div class="row row-add">
-        <input id="newDirInput" class="input" type="text" placeholder="请输入目录名称，例如 zh" />
-        <button id="addDirBtn" class="btn" type="button">新增</button>
+        <input id="newDirInput" class="input" type="text" />
+        <button id="addDirBtn" class="btn" type="button"></button>
     </div>
 
     <div id="toastContainer" class="toast-container"></div>

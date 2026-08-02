@@ -15,7 +15,7 @@ module.exports = {
 
   // Input placeholders
   input_resource_dir_placeholder: "Configure i18n directory",
-  input_new_dir_placeholder: "Enter locale code, e.g. en",
+  input_new_locale_placeholder: "Enter code, e.g. en",
 
   // Buttons
   btn_add: "Add",
@@ -24,15 +24,13 @@ module.exports = {
 
   // Table headers
   table_header_code: "Code",
-  table_header_is_template: "Is Template",
+  table_header_name: "Name",
   table_header_set_template: "Set Template",
   table_header_sync: "Sync",
   table_header_open: "Open",
   table_header_delete: "Delete",
 
   // Table cell content
-  template_yes: "Yes",
-  template_no: "No",
   btn_set_template: "Set as Template",
   btn_current_template: "Current Template",
   btn_sync: "Sync",
