@@ -2,21 +2,22 @@
   "$schema": "./@types/schema/package/index.json",
   "package_version": 2,
   "name": "brief-toolkit-i18n",
+  "title": "Brief Toolkit i18n",
   "version": "1.0.0",
   "author": "vangagh@live.cn",
   "editor": ">=3.8.8",
+  "description": "Brief Toolkit i18n 插件",
   "scripts": {
     "preinstall": "node ./scripts/preinstall.js",
     "build": "npx tsc"
   },
-  "description": "Brief Toolkit I18n 插件",
   "dependencies": {
     "fs-extra": "^10.0.0"
   },
   "main": "./dist/main.js",
   "panels": {
     "default": {
-      "title": "brief-toolkit-i18n Default Panel",
+      "title": "i18n:brief-toolkit-i18n.open_panel",
       "main": "dist/panels/default",
       "size": {
         "min-width": 400,
@@ -26,13 +27,13 @@
       }
     },
     "i18n": {
-      "title": "I18n 面板",
+      "title": "i18n:brief-toolkit-i18n.i18n_panel_title",
       "main": "dist/panels/i18n",
       "size": {
         "min-width": 400,
         "min-height": 300,
         "width": 600,
-        "height": 500
+        "height": 520
       }
     }
   },
@@ -48,14 +49,14 @@
             "templateLocale": null
           },
           "message": "i18n-panel-state-changed",
-          "label": "多语言面板配置"
+          "label": "i18n:brief-toolkit-i18n.profile_i18n_panel_state"
         }
       }
     },
     "menu": [
       {
         "path": "brief-toolkit-i18n",
-        "label": "打开 I18n 面板",
+        "label": "i18n:brief-toolkit-i18n.open_i18n_panel",
         "message": "open-i18n-panel"
       }
     ],
