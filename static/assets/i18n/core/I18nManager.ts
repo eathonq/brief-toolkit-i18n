@@ -8,7 +8,7 @@
  * @version v1.1.0
  *
  * @created 2026-03-15
- * @modified 2026-06-19
+ * @modified 2026-08-02
  */
 
 import { assetManager, ImageAsset, JsonAsset, SpriteFrame, Texture2D } from "cc";
@@ -17,7 +17,6 @@ import { II18nManager, I18nLabelMode } from "./II18nManager";
 import { AssetScope } from "../../common/core/AssetScope";
 import { getI18nEditorSpriteUuidResolver } from "./I18nEditorBridge";
 import { I18nEventType } from "./I18nEvent";
-import { DateFormatter } from "./DateFormatter";
 import { __bindI18n, __unbindI18n } from "./I18n";
 import { EventBus } from "../../common/core/EventBus";
 
@@ -29,12 +28,6 @@ export type LanguageMeta = {
   code: string;
   name: string;
   version?: string;
-  /** 日期格式模板（如 "yyyy年MM月dd日"），Date 参数且时间部分为 0 时使用 */
-  dateFormat?: string;
-  /** 时间格式模板（如 "HH:mm:ss"），预留 */
-  timeFormat?: string;
-  /** 日期时间格式模板（如 "yyyy年MM月dd日 HH:mm:ss"），Date 参数且时间部分非 0 时使用 */
-  dateTimeFormat?: string;
 };
 function toLanguageMeta(obj: any): LanguageMeta | null {
   const isTrue = obj && typeof obj.meta.code === 'string' && typeof obj.meta.name === 'string';
@@ -240,40 +233,23 @@ export class I18nManager implements II18nManager {
   }
 
   /**
-   * 获取多语言文本（编辑器绑定专用，仅支持字符串参数）
+   * 获取多语言文本
    * @param key 多语言文本路径（支持点语法，如 "common.confirm"）
-   * @param args 可选的字符串参数数组，用于替换文本中的 {0} {1} 占位符
+   * @param args 可选的参数数组，用于替换文本中的 {0} {1} 等占位符
    * @returns 多语言文本，如果未找到则返回路径本身作为 fallback
    */
-  text(key: string, args?: string[]): string {
+  text(key: string, args?: any[]): string {
     if (!key) return "";
     const value = this._resolveValue(key);
     return args?.length ? this._formatTemplate(value, ...args) : value;
   }
 
-  /**
-   * 获取多语言文本（格式化版，ViewModel 专用，支持 Date 等复杂类型）
-   * @param key 多语言文本路径（支持点语法）
-   * @param args 可选的参数数组，Date 类型根据语言 meta 自动格式化
-   * @returns 多语言文本，如果未找到则返回路径本身作为 fallback
-   */
-  format(key: string, args?: any[]): string {
-    if (!key) return "";
-    const value = this._resolveValue(key);
-    return args?.length ? this._formatTemplate(value, ...args) : value;
-  }
-
-  /** 模板级格式化：替换 {0} {1} 占位符，Date 类型自动格式化 */
+  /** 模板级格式化：替换 {0} {1} 占位符 */
   private _formatTemplate(template: string, ...args: any[]): string {
     return template.replace(/{(\d+)}/g, (match, index) => {
       const argIndex = parseInt(index);
       const arg = args[argIndex];
       if (arg === undefined || arg === null) return match;
-
-      if (arg instanceof Date) {
-        return this._formatDate(arg);
-      }
-
       return String(arg);
     });
   }
@@ -289,20 +265,6 @@ export class I18nManager implements II18nManager {
     }
 
     return key;
-  }
-
-  /** 按语言 meta 中的日期格式模板格式化 Date */
-  private _formatDate(date: Date): string {
-    const hasTime = date.getHours() !== 0
-      || date.getMinutes() !== 0
-      || date.getSeconds() !== 0
-      || date.getMilliseconds() !== 0;
-
-    const pattern = hasTime
-      ? (this._languageMeta?.dateTimeFormat ?? this._languageMeta?.dateFormat ?? 'yyyy-MM-dd HH:mm:ss')
-      : (this._languageMeta?.dateFormat ?? 'yyyy-MM-dd');
-
-    return DateFormatter.format(date, pattern);
   }
 
   /**

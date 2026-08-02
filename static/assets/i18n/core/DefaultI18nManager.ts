@@ -30,11 +30,7 @@ export class DefaultI18nManager implements II18nManager {
     console.debug(`[I18n] DefaultI18nManager.switch("${language}") — real manager not bound yet`);
   }
 
-  text(key: string, _args?: string[]): string {
-    return key;
-  }
-
-  format(key: string, _args?: any[]): string {
+  text(key: string, _args?: any[]): string {
     return key;
   }
 

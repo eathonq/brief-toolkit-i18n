@@ -7,7 +7,7 @@
  * @version v1.1.0
  *
  * @created 2026-03-15
- * @modified 2026-06-10（扩展事件/状态/回退签名 + 接口重命名）
+ * @modified 2026-08-02
  */
 
 /** 本地化显示模式 */
@@ -37,27 +37,15 @@ export interface II18nManager {
   switch(language: string): Promise<void>;
 
   /**
-   * 获取多语言文本（编辑器绑定专用）
+   * 获取多语言文本
    * @param key 多语言文本路径（支持点语法，如 "common.confirm"）
-   * @param args 可选的字符串参数数组，用于替换文本中的 {0} {1} 等占位符
+   * @param args 可选的参数数组，用于替换文本中的 {0} {1} 等占位符
    * @returns 多语言文本，如果未找到则返回路径本身作为 fallback
    * @example
    * i18nManager.text("common.confirm");       // "确定"
    * i18nManager.text("args.welcome", ["Game"]); // "欢迎来到Game!"
    */
-  text(key: string, args?: string[]): string;
-
-  /**
-   * 获取多语言文本（格式化版，ViewModel 专用）
-   * @param key 多语言文本路径（支持点语法）
-   * @param args 可选的参数数组，支持 Date / 数字 / 字符串等类型
-   *             Date 类型会根据语言 meta 中的 dateFormat/dateTimeFormat 自动格式化
-   * @returns 多语言文本，如果未找到则返回路径本身作为 fallback
-   * @example
-   * I18n.format("time_now", [new Date()]);        // "当前时间：2026年06月10日 14:30:00"
-   * I18n.format("publish_at", [new Date("2026-06-10")]); // "发布于 2026年06月10日"
-   */
-  format(key: string, args?: any[]): string;
+  text(key: string, args?: any[]): string;
 
   /**
    * 设置回退语言

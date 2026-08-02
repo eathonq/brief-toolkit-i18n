@@ -91,7 +91,9 @@
 .dir-table th:nth-child(4),
 .dir-table td:nth-child(4),
 .dir-table th:nth-child(5),
-.dir-table td:nth-child(5) {
+.dir-table td:nth-child(5),
+.dir-table th:nth-child(6),
+.dir-table td:nth-child(6) {
     width: 74px;
     text-align: center;
 }

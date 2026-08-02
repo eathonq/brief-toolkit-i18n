@@ -28,7 +28,6 @@ i18n 模块用于统一管理语言数据、文本取值和图片路径映射。
 │   │   ├── I18nSetting.ts            # 多语言配置组件（可选，编辑器便利）
 │   │   └── I18nSprite.ts             # 图片本地化组件（Sprite）
 │   └── core
-│       ├── DateFormatter.ts          # 日期格式化工具（纯 TS）
 │       ├── DefaultI18nManager.ts     # Null Object 实现（未绑定时兜底）
 │       ├── I18n.ts                   # i18n 静态门面（bind/unbind + Null Object 兜底）
 │       ├── I18nEditorBridge.ts       # 编辑器模式下的图片解析桥接
@@ -49,9 +48,7 @@ i18n 模块用于统一管理语言数据、文本取值和图片路径映射。
   "meta": {
     "code": "zh",
     "name": "中文",
-    "version": "1.0.0",
-    "dateFormat": "yyyy年MM月dd日",
-    "dateTimeFormat": "yyyy年MM月dd日 HH:mm:ss"
+    "version": "1.0.0"
   },
   "common": {
     "confirm": "确认",
@@ -69,10 +66,8 @@ i18n 模块用于统一管理语言数据、文本取值和图片路径映射。
 
 说明：
 - `meta.code` / `meta.name` 为必填。
-- `meta.dateFormat` / `meta.dateTimeFormat` 可选，用于 `I18n.format()` 的 Date 自动格式化。
 - 文本 key 支持点语法，如 `common.confirm`。
-- `text()` 占位符使用 `{0}`、`{1}`，仅支持字符串。
-- `format()` 占位符同 `{0}`、`{1}`，支持 Date / 字符串 / 数字等。
+- `text()` 占位符使用 `{0}`、`{1}`，支持字符串、数字等类型。
 - 图片 key 的值是相对文件名（不带后缀），最终会拼成：`{assetPath}/{language}/{value}`。
 
 ### 2. 图片资源目录（示例）
@@ -108,7 +103,7 @@ resources
 ### 4. ViewModel 代码调用（推荐使用 `pure.ts`）
 
 ```ts
-import { I18n, DateFormatter } from "db://brief-toolkit-i18n/i18n/pure";
+import { I18n } from "db://brief-toolkit-i18n/i18n/pure";
 
 // 切换语言
 await I18n.switch("en");
@@ -116,13 +111,6 @@ await I18n.switch("en");
 // 获取简单文本
 I18n.text("common.confirm");               // "确定"
 I18n.text("args.welcome", ["Game"]);       // "欢迎来到Game!"
-
-// 格式化文本（支持 Date 自动格式化）
-I18n.format("time_now", [new Date()]);     // "当前时间：2026年06月10日 14:30:00"
-I18n.format("publish_at", [new Date("2026-06-10")]); // "发布于 2026年06月10日"
-
-// 手动日期格式化
-DateFormatter.format(new Date(), "MM/dd HH:mm"); // "06/10 14:30"
 ```
 
 ### 5. 语言回退（Fallback）
@@ -221,17 +209,11 @@ ViewModel 从 `pure.ts` 导入，单元测试 / SSR 环境下也能正常运行�
 ### 错误恢复
 `switch()` 加载失败时自动回滚到旧语言，不会因网络异常导致当前语言丢失。
 
-### Date 格式化
-`I18n.format()` 检测到 `Date` 类型参数时：
-- 时间部分为 `00:00:00` → 使用 `meta.dateFormat`
-- 时间部分非零 → 使用 `meta.dateTimeFormat`
-- 未配置 → 回退默认格式 `yyyy-MM-dd` / `yyyy-MM-dd HH:mm:ss`
-
 ## 注意事项
 - 语言 JSON 的 `meta` 节点必须合法（至少包含 `code` 和 `name`），否则会报错并无法切换。
 - `I18nLabel` 仅在节点上存在 `Label` / `RichText` / `EditBox` 时生效。
 - `I18nSprite` 仅在节点上存在 `Sprite` 时生效。
-- `I18nLabel.args` 在编辑器属性面板中仅支持字符串数组；如需传 Date 等类型请使用 `I18n.format()`。
+- `I18nLabel.args` 在编辑器属性面板中仅支持字符串数组。
 - 纯编辑器模式（`EDITOR`）下，`I18nSprite` 没有加载图片（除非使用了编辑器桥接）。
 
 ## 编辑器桥接（可选）
@@ -256,10 +238,9 @@ ViewModel 从 `pure.ts` 导入，单元测试 / SSR 环境下也能正常运行�
 ### pure.ts（ViewModel 入口，零 Cocos 依赖）
 | 导出 | 来源 |
 |------|------|
-| `I18n` | 静态门面（language / text / format / switch / fallbackLanguage 等） |
+| `I18n` | 静态门面（language / text / switch / fallbackLanguage 等） |
 | `DefaultI18nManager` | Null Object（测试/SSR 场景） |
 | `II18nManager`（type） | 管理器接口 |
-| `DateFormatter` | 日期格式化工具 |
 | `I18nLabelMode` | 文本显示模式枚举 |
 | `I18nEventType` | 事件类型枚举（搭配 common/EventBus 使用） |
 | `I18nLanguage...Event`（type） | 事件载荷类型 |
@@ -272,7 +253,6 @@ ViewModel 从 `pure.ts` 导入，单元测试 / SSR 环境下也能正常运行�
 | `I18nLabel` | - |
 | `I18nSprite` | - |
 | `I18n` | - |
-| `DateFormatter` | - |
 | `I18nLabelMode` | - |
 | `I18nEventType` | - |
 | `LanguageMeta`（type） | - |
@@ -289,9 +269,7 @@ I18n.fallbackLanguage      // string|null  回退语言代码
 
 // ── 文本 ──
 I18n.text(key)                         // 获取简单文本
-I18n.text(key, args: string[])         // 获取带占位符文本（仅字符串参数）
-I18n.format(key)                        // 获取格式化文本
-I18n.format(key, args: any[])           // 获取格式化文本（支持 Date 等）
+I18n.text(key, args: any[])            // 获取带占位符文本
 
 // ── 切换 ──
 await I18n.switch(lang)                 // 切换语言

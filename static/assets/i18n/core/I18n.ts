@@ -73,23 +73,13 @@ export class I18n {
   }
 
   /**
-   * 获取多语言文本（编辑器绑定专用，仅支持字符串参数）
+   * 获取多语言文本
    * @param key 多语言文本路径（支持点语法，如 "common.confirm"）
-   * @param args 可选的字符串参数数组，用于替换文本中的 {0} {1} 占位符
+   * @param args 可选的参数数组，用于替换文本中的 {0} {1} 等占位符
    * @returns 多语言文本，未找到时返回 key 本身作为 fallback
    */
-  static text(key: string, args?: string[]): string {
+  static text(key: string, args?: any[]): string {
     return I18n.current.text(key, args);
-  }
-
-  /**
-   * 获取多语言文本（格式化版，ViewModel 专用）
-   * @param key 多语言文本路径（支持点语法）
-   * @param args 可选的参数数组，Date 类型根据语言 meta 自动格式化
-   * @returns 多语言文本，未找到时返回 key 本身作为 fallback
-   */
-  static format(key: string, args?: any[]): string {
-    return I18n.current.format(key, args);
   }
 
   /**
