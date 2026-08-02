@@ -23,8 +23,8 @@ const { ccclass, help, executeInEditMode, menu, property } = _decorator;
 /** 组件检测数组 */
 const COMP_ARRAY_CHECK: { type: any, property: string }[] = [
   { type: Label, property: 'string' },
-  { type: RichText, property: 'string' },
-  { type: EditBox, property: 'string' }
+  // { type: RichText, property: 'string' },
+  // { type: EditBox, property: 'string' }
 ];
 
 /**

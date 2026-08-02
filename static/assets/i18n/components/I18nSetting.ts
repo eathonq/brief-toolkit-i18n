@@ -16,7 +16,7 @@ import { _decorator, Component, Enum, JsonAsset } from 'cc';
 import { EDITOR } from 'cc/env';
 import { I18nManager } from '../core/I18nManager';
 import { I18nLabelMode } from '../core/II18nManager';
-const { ccclass, property, executeInEditMode, menu } = _decorator;
+const { ccclass, help, property, executeInEditMode, menu } = _decorator;
 
 const I18N_ASSET_PATH = "i18n";
 
@@ -26,6 +26,7 @@ const I18N_ASSET_PATH = "i18n";
  * EDITOR 模式下，修改 defaultAsset 和 assetPath 会直接影响 I18nManager 的对应属性。
  */
 @ccclass('i18n.I18nSetting')
+@help('https://vangagh.gitbook.io/brief-toolkit/i18n/i18nsetting')
 @executeInEditMode
 @menu('I18n/I18nSetting')
 export class I18nSetting extends Component {
